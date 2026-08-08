@@ -1,0 +1,4 @@
+#Thu Jun 11 23:24:41 IRST 2026
+base.0=E\:\\code\\web\\TO-do-list\\app\\build\\intermediates\\dex\\release\\minifyReleaseWithR8\\classes.dex
+renamed.0=classes.dex
+path.0=classes.dex

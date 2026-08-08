@@ -1,0 +1,316 @@
+body {
+font-family: 'Inter', sans-serif;
+}
+
+/* =========================
+KOALA WELCOME
+========================= */
+
+.koala-welcome {
+animation: floatKoala 3s ease-in-out infinite;
+filter: drop-shadow(0 12px 20px rgba(0, 0, 0, 0.15));
+}
+
+.koala-float {
+animation: floatKoala 3s ease-in-out infinite;
+}
+
+@keyframes floatKoala {
+0% {
+transform: translateY(0);
+}
+
+
+50% {
+    transform: translateY(-3px);
+}
+
+100% {
+    transform: translateY(0);
+}
+
+
+}
+
+/* =========================
+DRAG & DROP
+========================= */
+
+.cursor-grab {
+cursor: grab;
+}
+
+.cursor-grab:active {
+cursor: grabbing;
+}
+
+.note {
+transition:
+transform 0.25s ease,
+box-shadow 0.25s ease,
+opacity 0.25s ease;
+}
+
+.dragging {
+opacity: 0.5;
+transform: scale(1.05) rotate(2deg);
+box-shadow: 0 20px 40px rgba(138, 136, 136, 0.15);
+cursor: grabbing;
+}
+
+.drop-target {
+transform: scale(1.02);
+border: 2px dashed #a911e0;
+}
+
+/* =========================
+BACK BUTTON
+========================= */
+
+#back-btn {
+transition: all 0.3s ease;
+animation: popIn 0.4s ease;
+}
+
+#back-btn:hover {
+transform: translateY(-3px) scale(1.05);
+}
+
+@keyframes popIn {
+from {
+opacity: 0;
+transform: scale(0.7);
+}
+
+
+to {
+    opacity: 1;
+    transform: scale(1);
+}
+
+
+}
+
+/* =========================
+KOALA FACE
+========================= */
+
+.koala-face {
+width: 40px;
+height: 40px;
+background: #b8b8b8;
+border-radius: 50%;
+position: relative;
+flex-shrink: 0;
+}
+
+.ear {
+width: 16px;
+height: 16px;
+background: #9e9e9e;
+border-radius: 50%;
+position: absolute;
+top: -5px;
+}
+
+.left-ear {
+left: 0;
+}
+
+.right-ear {
+right: 0;
+}
+
+.eye {
+width: 4px;
+height: 8px;
+background: #222;
+border-radius: 50px;
+position: absolute;
+top: 14px;
+}
+
+.left-eye {
+left: 12px;
+}
+
+.right-eye {
+right: 12px;
+}
+
+/* =========================
+KOALA NOSE
+========================= */
+
+.nose {
+width: 10px;
+height: 14px;
+background: #222;
+border-radius: 50%;
+position: absolute;
+left: 50%;
+top: 18px;
+transform: translateX(-50%);
+}
+
+/* =========================
+BLINK
+========================= */
+
+.left-eye,
+.right-eye {
+animation: blink 4s infinite;
+}
+
+@keyframes blink {
+0%,
+45%,
+47%,
+100% {
+height: 8px;
+}
+
+
+46% {
+    height: 1px;
+}
+
+
+}
+
+/* =========================
+HAPPY KOALA
+========================= */
+
+.koala-happy {
+animation: happyJump 0.8s ease;
+}
+
+@keyframes happyJump {
+0% {
+transform: translateY(0);
+}
+
+
+30% {
+    transform: translateY(-12px) rotate(-10deg);
+}
+
+60% {
+    transform: translateY(-12px) rotate(10deg);
+}
+
+100% {
+    transform: translateY(0);
+}
+
+
+}
+
+/* =========================
+KOALA BUTTON
+========================= */
+
+.koala-btn {
+transition: transform 0.3s ease;
+}
+
+.koala-btn:hover {
+transform: translateY(-6px) scale(1.03);
+}
+
+/* =========================
+KOALA ALERT
+========================= */
+
+.koala-alert {
+position: fixed;
+bottom: 20px;
+right: 20px;
+background: white;
+padding: 14px 18px;
+border-radius: 14px;
+box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
+z-index: 9999;
+animation: popup 0.3s ease;
+}
+
+@keyframes popup {
+from {
+opacity: 0;
+transform: translateY(20px);
+}
+
+
+to {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+
+}
+
+/* =========================
+DARK MODE
+========================= */
+
+.dark {
+background-color: #0f172a;
+color: white;
+}
+
+.dark #main-board {
+color: white;
+}
+
+.dark .bg-white {
+background-color: #1e293b !important;
+}
+
+.dark .text-slate-800 {
+color: white !important;
+}
+
+.dark .text-slate-600,
+.dark .text-slate-500 {
+color: #cbd5e1 !important;
+}
+
+.dark input,
+.dark textarea {
+background: #1e293b !important;
+color: white !important;
+border-color: #334155 !important;
+}
+
+.dark #modal-box {
+background: #1e293b;
+}
+
+.dark header button {
+transition: 0.3s;
+}
+
+/* =========================
+GLOBAL TRANSITIONS
+========================= */
+
+body,
+#main-board,
+#modal-box,
+input,
+textarea,
+button {
+transition: all 0.35s ease;
+}
+
+/* =========================
+TEXT CLAMP
+========================= */
+
+.line-clamp {
+overflow: hidden;
+display: -webkit-box;
+-webkit-box-orient: vertical;
+-webkit-line-clamp: 4;
+}

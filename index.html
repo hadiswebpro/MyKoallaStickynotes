@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+<title>My Koala Sticky Notes</title>
+
+<link rel="manifest" href="./manifest.json">
+<meta name="theme-color" content="#217d5f">
+
+<script src="https://cdn.tailwindcss.com"></script>
+
+<!-- Favicons -->
+<link rel="apple-touch-icon" sizes="180x180" href="./favicon/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="192x192" href="./favicon/android-chrome-192x192.png">
+<link rel="icon" type="image/png" sizes="512x512" href="./favicon/android-chrome-512x512.png">
+<link rel="shortcut icon" href="./favicon/favicon.ico">
+
+<!-- Font -->
+<link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet"
+>
+
+<link rel="stylesheet" href="./style.css">
+
+
+</head>
+
+<body class="bg-slate-50 min-h-screen overflow-x-hidden">
+
+
+<!-- =========================
+     WELCOME SCREEN
+========================== -->
+
+<div
+    id="welcome-screen"
+    class="fixed inset-0 bg-gradient-to-br from-green-50 via-emerald-50 to-cyan-50 flex justify-center items-center z-50 transition-all duration-700"
+>
+    <div class="text-center max-w-lg px-6">
+
+        <div class="relative inline-block mb-8">
+
+            <img
+                src="./images/koala.png"
+                alt="Koala"
+                class="w-56 mx-auto koala-welcome"
+            >
+
+            <div class="absolute -top-3 -right-2 text-3xl animate-bounce">
+                ⭐️
+            </div>
+
+        </div>
+
+        <h1 class="text-5xl font-extrabold text-slate-800 mb-4">
+            Koala Notes
+        </h1>
+
+        <p class="text-slate-600 text-lg leading-relaxed mb-8">
+            Your little koala is ready to help you
+            organize ideas, tasks and dreams.
+        </p>
+
+        <button
+            onclick="enterApp()"
+            class="bg-emerald-500 hover:bg-emerald-600 text-white px-8 py-4 rounded-full shadow-xl transition-all duration-300 hover:scale-105"
+        >
+            🌿 Let's Get Started
+        </button>
+
+    </div>
+</div>
+
+
+<!-- =========================
+     MAIN BOARD
+========================== -->
+
+<div
+    id="main-board"
+    class="hidden opacity-0 transition-opacity duration-700 p-6 md:p-12 max-w-6xl mx-auto"
+>
+
+    <header class="flex flex-col md:flex-row md:justify-between md:items-center gap-4 mb-10">
+
+        <!-- LEFT -->
+        <div class="flex items-center gap-4">
+
+            <div class="relative w-14 h-14 flex-shrink-0 koala-float">
+
+                <div class="koala-face scale-110">
+                    <div class="ear left-ear"></div>
+                    <div class="ear right-ear"></div>
+                    <div class="eye left-eye"></div>
+                    <div class="eye right-eye"></div>
+                    <div class="nose"></div>
+                </div>
+
+                <div class="absolute -top-1 -right-1 text-lg animate-bounce">
+                    ✨
+                </div>
+
+            </div>
+
+            <div>
+                <h2 class="text-2xl font-bold text-slate-800">
+                    🌱 My Creative Board
+                </h2>
+
+                <p class="text-sm text-slate-500">
+                    Capture ideas, manage tasks (Click note text to complete it)
+                </p>
+            </div>
+
+        </div>
+
+
+        <!-- CONTROLS -->
+        <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 w-full md:w-auto">
+
+            <div class="relative w-full sm:w-64">
+
+                <span class="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-sm">
+                    🔍
+                </span>
+
+                <input
+                    id="search-input"
+                    type="text"
+                    placeholder="Search notes..."
+                    class="w-full pl-9 pr-3 py-2 rounded-full border border-slate-200 focus:outline-none focus:ring-2 focus:ring-indigo-500 text-sm"
+                    oninput="searchNotes()"
+                >
+
+            </div>
+
+            <button
+                onclick="showAllNotes()"
+                id="back-btn"
+                class="hidden flex items-center justify-center gap-2 px-3 py-2 text-sm bg-white rounded-full shadow-md hover:shadow-lg transition-all"
+            >
+                🎋 All
+            </button>
+
+            <button
+                id="theme-btn"
+                onclick="toggleTheme()"
+                class="px-3 py-2 bg-white rounded-full shadow-md hover:shadow-lg transition text-sm"
+            >
+                🌙
+            </button>
+
+        </div>
+
+
+        <!-- NEW NOTE -->
+        <button
+            onclick="openModal()"
+            class="w-full md:w-auto bg-slate-900 hover:bg-slate-800 text-white font-medium px-5 py-2.5 rounded-full shadow-lg transition transform hover:scale-105 active:scale-95 flex items-center justify-center gap-2"
+        >
+            <span class="text-lg">+</span>
+            New Note
+        </button>
+
+    </header>
+
+
+    <!-- PINNED -->
+    <h3
+        id="pinned-title"
+        class="text-xl font-bold text-slate-700 mb-4"
+    ></h3>
+
+    <div
+        id="pinned-container"
+        class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6"
+    ></div>
+
+
+    <!-- NOTES -->
+    <h3
+        id="notes-title"
+        class="text-xl font-bold text-slate-700 mb-4"
+    ></h3>
+
+    <main
+        id="notes-container"
+        class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6"
+    ></main>
+
+</div>
+
+
+<!-- =========================
+     NOTE MODAL
+========================== -->
+
+<div
+    id="note-modal"
+    class="fixed inset-0 bg-slate-900/40 backdrop-blur-sm z-50 flex justify-center items-center hidden opacity-0 transition-all duration-300"
+>
+
+    <div
+        id="modal-box"
+        class="bg-white w-full max-w-md mx-4 p-6 rounded-2xl shadow-2xl transform scale-95 transition-all duration-300"
+    >
+
+        <div class="flex justify-between items-center mb-4">
+
+            <h3
+                id="modal-title"
+                class="text-lg font-bold text-slate-800"
+            >
+                Create New Note 📝
+            </h3>
+
+            <button
+                onclick="closeModal()"
+                class="text-slate-400 hover:text-slate-600 text-xl"
+            >
+                &times;
+            </button>
+
+        </div>
+
+
+        <!-- TEXT -->
+        <textarea
+            id="note-text"
+            rows="4"
+            placeholder="Type your note here..."
+            class="w-full p-4 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 text-slate-700 placeholder-slate-400 resize-none mb-4"
+        ></textarea>
+
+
+        <!-- IMAGE -->
+        <div class="mb-4">
+
+            <label class="block text-xs font-semibold text-slate-500 uppercase mb-2">
+                Add Image (optional 🦋)
+            </label>
+
+            <input
+                type="file"
+                id="note-image"
+                accept="image/*"
+                class="w-full text-sm"
+            >
+
+            <img
+                id="image-preview"
+                class="hidden w-full max-h-40 object-cover rounded-xl mt-3"
+                alt="Image preview"
+            >
+
+        </div>
+
+
+        <!-- COLORS -->
+        <div class="mb-4">
+
+            <label class="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">
+                Select Color
+            </label>
+
+            <div class="flex gap-3">
+
+                <button
+                    onclick="selectColor('bg-amber-100/80', 'border-amber-400', this)"
+                    class="w-8 h-8 rounded-full bg-amber-100 border-2 border-amber-400 ring-2 ring-offset-2 ring-indigo-600 color-btn"
+                    data-color="bg-amber-100/80"
+                ></button>
+
+                <button
+                    onclick="selectColor('bg-rose-100/80', 'border-rose-400', this)"
+                    class="w-8 h-8 rounded-full bg-rose-100 border-2 border-rose-400 color-btn"
+                    data-color="bg-rose-100/80"
+                ></button>
+
+                <button
+                    onclick="selectColor('bg-blue-100/80', 'border-blue-400', this)"
+                    class="w-8 h-8 rounded-full bg-blue-100 border-2 border-blue-400 color-btn"
+                    data-color="bg-blue-100/80"
+                ></button>
+
+                <button
+                    onclick="selectColor('bg-emerald-100/80', 'border-emerald-400', this)"
+                    class="w-8 h-8 rounded-full bg-emerald-100 border-2 border-emerald-400 color-btn"
+                    data-color="bg-emerald-100/80"
+                ></button>
+
+                <button
+                    onclick="selectColor('bg-purple-100/80', 'border-purple-400', this)"
+                    class="w-8 h-8 rounded-full bg-purple-100 border-2 border-purple-400 color-btn"
+                    data-color="bg-purple-100/80"
+                ></button>
+
+                <button
+                    onclick="selectColor('bg-orange-100/80', 'border-orange-400', this)"
+                    class="w-8 h-8 rounded-full bg-orange-100 border-2 border-orange-400 color-btn"
+                    data-color="bg-orange-100/80"
+                ></button>
+
+            </div>
+
+        </div>
+
+
+        <!-- STICKERS -->
+        <div class="mb-6">
+
+            <label class="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">
+                Add Sticker
+            </label>
+
+            <div class="flex gap-2 bg-slate-50 p-2 rounded-xl justify-between">
+
+                <button onclick="selectSticky('💡', this)" class="text-xl p-1.5 hover:bg-white rounded-md transition sticker-btn bg-white" data-sticker="💡">💡</button>
+                <button onclick="selectSticky('🎯', this)" class="text-xl p-1.5 hover:bg-white rounded-md transition sticker-btn" data-sticker="🎯">🎯</button>
+                <button onclick="selectSticky('🍳', this)" class="text-xl p-1.5 hover:bg-white rounded-md transition sticker-btn" data-sticker="🍳">🍳</button>
+                <button onclick="selectSticky('💻', this)" class="text-xl p-1.5 hover:bg-white rounded-md transition sticker-btn" data-sticker="💻">💻</button>
+                <button onclick="selectSticky('🍵', this)" class="text-xl p-1.5 hover:bg-white rounded-md transition sticker-btn" data-sticker="🍵">🍵</button>
+                <button onclick="selectSticky('📚', this)" class="text-xl p-1.5 hover:bg-white rounded-md transition sticker-btn" data-sticker="📚">📚</button>
+
+            </div>
+
+        </div>
+
+
+        <!-- REMINDER -->
+        <label class="block text-xs font-semibold text-slate-500 uppercase mb-2">
+            ⏰ Reminder
+        </label>
+
+        <input
+            type="datetime-local"
+            id="note-reminder"
+            class="w-full p-3 border border-slate-200 rounded-xl mb-4"
+        >
+
+
+        <!-- ACTIONS -->
+        <div class="flex gap-3">
+
+            <button
+                onclick="closeModal()"
+                class="w-1/2 bg-slate-100 hover:bg-slate-200 text-slate-600 font-medium py-3 rounded-xl transition"
+            >
+                Cancel
+            </button>
+
+            <button
+                onclick="saveNote()"
+                class="w-1/2 bg-indigo-600 hover:bg-indigo-700 text-white font-medium py-3 rounded-xl transition shadow-lg shadow-indigo-100"
+            >
+                Save Note
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<script src="./script.js"></script>
+
+
+</body>
+</html>
