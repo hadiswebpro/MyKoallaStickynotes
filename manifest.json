@@ -1,8 +1,8 @@
 {
   "name": "My Koala Sticky Notes",
   "short_name": "Koala Notes",
-  "start_url": "./",
-  "scope": "./",
+  "start_url": "/MyKoallaStickynotes/",
+  "scope": "/MyKoallaStickynotes/",
   "display": "standalone",
   "background_color": "#f8fafc",
   "theme_color": "#217d5f",
