@@ -254,43 +254,69 @@ to {
 DARK MODE
 ========================= */
 
-.dark {
-background-color: #0f172a;
-color: white;
+body {
+    background-color: #f8fafc;
+    color: #0f172a;
+    transition: background-color 0.35s ease, color 0.35s ease;
 }
 
-.dark #main-board {
-color: white;
+body.dark {
+    background-color: #0f172a !important;
+    color: white;
 }
 
-.dark .bg-white {
-background-color: #1e293b !important;
+body.dark #main-board {
+    color: white;
 }
 
-.dark .text-slate-800 {
-color: white !important;
+body.dark .bg-white {
+    background-color: #1e293b !important;
 }
 
-.dark .text-slate-600,
-.dark .text-slate-500 {
-color: #cbd5e1 !important;
+body.dark .bg-slate-50 {
+    background-color: #0f172a !important;
 }
 
-.dark input,
-.dark textarea {
-background: #1e293b !important;
-color: white !important;
-border-color: #334155 !important;
+body.dark .text-slate-800 {
+    color: white !important;
 }
 
-.dark #modal-box {
-background: #1e293b;
+body.dark .text-slate-700 {
+    color: #e2e8f0 !important;
 }
 
-.dark header button {
-transition: 0.3s;
+body.dark .text-slate-600,
+body.dark .text-slate-500 {
+    color: #cbd5e1 !important;
 }
 
+body.dark input,
+body.dark textarea {
+    background: #1e293b !important;
+    color: white !important;
+    border-color: #334155 !important;
+}
+
+body.dark #modal-box {
+    background: #1e293b !important;
+}
+
+body.dark .bg-slate-100 {
+    background-color: #334155 !important;
+}
+
+body.dark header button {
+    transition: 0.3s;
+}
+
+body,
+#main-board,
+#modal-box,
+input,
+textarea,
+button {
+    transition: all 0.35s ease;
+}
 /* =========================
 GLOBAL TRANSITIONS
 ========================= */
