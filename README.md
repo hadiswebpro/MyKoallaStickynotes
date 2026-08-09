@@ -2,6 +2,12 @@
 
 A cute and simple **Sticky Notes PWA** designed to help you organize ideas, tasks, and reminders in one place.
 
+
+## 🌐 Live Demo
+
+👉 [View Live Site](https://hadiswebpro.github.io/MyKoallaStickynotes/)
+
+
 ## ✨ Features
 
 * 📝 Create, edit, and delete notes
